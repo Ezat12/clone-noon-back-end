@@ -32,7 +32,7 @@ app.use(cors());
 app.options("*", cors());
 app.use(compression());
 
-if (process.env.NODE_ENV === "develepment") {
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 // Connect database

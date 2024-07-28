@@ -4,7 +4,7 @@ const ApiError = require("../utils/apiError");
 const errorHandling = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
-  if (process.env.NODE_ENV === "develepment") {
+  if (process.env.NODE_ENV === "development") {
     envDev(err, res);
   } else {
     envprod(err, res);
