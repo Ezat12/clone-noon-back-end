@@ -22,6 +22,8 @@ const orderRoute = require("./routes/orderRoutes");
 const ApiError = require("./utils/apiError");
 const errorHandling = require("./middlewares/errorHandling");
 
+const { webhookCheckout } = require("./server/order-server");
+
 dotenv.config({ path: "config.env" });
 
 // middleware
@@ -37,6 +39,12 @@ if (process.env.NODE_ENV === "development") {
 }
 // Connect database
 dbConnection();
+
+app.post(
+  "/webhook-checkout",
+  express.raw({ type: "application/json" }),
+  webhookCheckout
+);
 
 // Routes
 
