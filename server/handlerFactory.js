@@ -66,17 +66,13 @@ const getOne = (Model, populateOpt) =>
   });
 
 const getAll = (Model) =>
-  asyncHandler(async (req, res) => {
+  asyncErrorHandler(async (req, res) => {
     const countDocuments = await Model.countDocuments();
     let queryId = {};
-    // if (req.params.categoryId) queryId = { category: req.params.categoryId };
-    // else if (req.params.productId) queryId = { product: req.params.productId };
-    // else if (req.user.role === "user" ) queryId = { user: req.user._id };
 
     if (req.queryId) {
       queryId = req.queryId;
     }
-
     const allModel = new apiFeatures(Model.find(queryId), req.body)
       .fields()
       .sort()
@@ -87,12 +83,14 @@ const getAll = (Model) =>
     const { paginationResult, mongooseQuery } = allModel;
     const getModel = await mongooseQuery;
 
+    // console.log(getModel);
+    // console.log(paginationResult);
+    // console.log(getModel.length);
     res.status(200).json({
       result: getModel.length,
       paginationResult,
       data: getModel,
     });
-    // status(200).json({ result: allModel.length, data: allModel });
   });
 
 module.exports = {

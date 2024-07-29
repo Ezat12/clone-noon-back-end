@@ -26,7 +26,11 @@ const checkCategoryId = (req, res, next) => {
 };
 
 const createSubCategory = createOne(SubCategory);
-const getAllSubCategory = getAll(SubCategory);
+const getAllSubCategory = getAll(SubCategory); // async (req, res, next) => {
+//   const subCategory = await SubCategory.find({});
+
+//   res.status(200).json({ data: subCategory });
+// };
 
 const getSubCategory = getOne(SubCategory);
 const updateSubCategory = updateOne(SubCategory);

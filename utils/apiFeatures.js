@@ -7,7 +7,7 @@ class apiFeatures {
     /// req.body
     const queryStringObj = { ...this.queryString };
 
-    console.log(queryStringObj);
+    // console.log(queryStringObj);
 
     // 1) filtration
     let feildsQuery = ["limit", "skip", "fields", "sort", "keyword"];
@@ -23,6 +23,7 @@ class apiFeatures {
     );
 
     this.mongooseQuery = this.mongooseQuery.find(JSON.parse(queryStrReplace));
+    // console.log(queryText);
     return this;
   }
   sort() {

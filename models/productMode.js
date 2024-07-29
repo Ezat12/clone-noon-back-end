@@ -57,9 +57,10 @@ const productSchema = new mongoose.Schema(
     },
     rating_average: {
       type: Number,
-      min: [1, "Rating must be above or equal 1.0"],
+      min: [0, "Rating must be above or equal 0.0"],
       max: [5, "Rating must be below or equal 5.0"],
-      default: 0,
+      default: 1,
+      // required: [false],
     },
     ratingQuantity: {
       type: Number,

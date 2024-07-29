@@ -84,7 +84,6 @@ const protectAuth = asyncErrorHandler(async (req, res, next) => {
 
 const allowedTo = (...roles) =>
   asyncErrorHandler(async (req, res, next) => {
-
     if (!roles.includes(req.user.role)) {
       return next(new ApiError("you cant not allow to access this route", 403));
     }

@@ -10,19 +10,22 @@ const {
   getAll,
 } = require("./handlerFactory");
 const { uploadImageSingle } = require("../middlewares/uploadImage");
+const { asyncErrorHandler } = require("express-error-catcher");
 
 const uploadBrandImage = uploadImageSingle("image");
 
-const resizeImage = async (req, res, next) => {
+const resizeImage = asyncErrorHandler(async (req, res, next) => {
   const fileName = `brand-${uuidv4()}-${Date.now()}.jpeg`;
-  await sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat("jpeg")
-    .jpeg({ quality: 90 })
-    .toFile(`uploads/brands/${fileName}`);
-  req.body.image = fileName;
+  if (req.file) {
+    await sharp(req.file.buffer)
+      .resize(500, 500)
+      .toFormat("jpeg")
+      .jpeg({ quality: 90 })
+      .toFile(`uploads/brands/${fileName}`);
+    req.body.image = fileName;
+  }
   next();
-};
+});
 
 const createBrand = createOne(Brand);
 
