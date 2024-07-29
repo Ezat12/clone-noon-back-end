@@ -7,7 +7,7 @@ const errorHandling = (err, req, res, next) => {
   if (process.env.NODE_ENV === "development") {
     envDev(err, res);
   } else {
-    envprod(err, res);
+    envProd(err, res);
   }
 };
 
@@ -20,7 +20,7 @@ const envDev = (err, res) => {
   });
 };
 
-const envprod = (err, res) => {
+const envProd = (err, res) => {
   if ((err.name = "JsonWebTokenError")) err = invalidSignature();
   if ((err.name = "TokenExpiredError")) err = tokenExpired();
   res.status(400).json({
