@@ -151,11 +151,9 @@ const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
-    console.log("log 1", event.type);
   } catch (err) {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
-  console.log("log 2", event.type);
 
   if (event.type === "checkout.session.completed") {
     console.log("Create Order Here");

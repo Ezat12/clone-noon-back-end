@@ -27,6 +27,13 @@ const { webhookCheckout } = require("./server/order-server");
 dotenv.config({ path: "config.env" });
 
 // middleware
+
+app.post(
+  "/webhook-checkout",
+  express.raw({ type: "application/json" }),
+  webhookCheckout
+);
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "uploads")));
 
@@ -39,12 +46,6 @@ if (process.env.NODE_ENV === "development") {
 }
 // Connect database
 dbConnection();
-
-app.post(
-  "/webhook-checkout",
-  express.raw({ type: "application/json" }),
-  webhookCheckout
-);
 
 // Routes
 
