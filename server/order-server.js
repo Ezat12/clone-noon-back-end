@@ -150,6 +150,7 @@ const createOrder = async (session) => {
   const cart = await Cart.findById(cartId);
   const user = await User.find({ email: session.customer_email });
 
+  console.log( "User", user);
   console.log(user._id);
 
   const order = await Order.create({
