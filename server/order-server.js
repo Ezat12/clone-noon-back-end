@@ -193,7 +193,7 @@ const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
   //   return;
   // }
   if (event.type === "checkout.session.completed") {
-    createOrder(session);
+    createOrder(event.data.object);
   }
 });
 
