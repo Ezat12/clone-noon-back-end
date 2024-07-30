@@ -130,7 +130,7 @@ const checkOutSession = asyncErrorHandler(async (req, res, next) => {
       },
     ],
     mode: "payment",
-    success_url: `${req.protocol}://${req.get("host")}/api/v1/orders`,
+    success_url: `${req.protocol}://${req.get("host")}/api/v1/product`,
     cancel_url: `${req.protocol}://${req.get("host")}/api/v1/cart`,
     customer_email: req.user.email,
     client_reference_id: req.params.cartId,
