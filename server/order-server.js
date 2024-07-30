@@ -150,6 +150,9 @@ const createOrder = async (session) => {
   const cart = await Cart.findById(cartId);
   const user = await User.find({ email: session.customer_email });
 
+  console.log(cart);
+  console.log(user);
+
   const order = await Order.create({
     user: user._id,
     cartItem: cart.cartItem,
@@ -159,7 +162,6 @@ const createOrder = async (session) => {
     isPaid: true,
     paidAt: Date.now(),
   });
-  console.log("order ", order);
   if (order) {
     const bulkWrite = cart.cartItem.map((item) => ({
       updateOne: {
@@ -181,17 +183,16 @@ const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
 
   let event;
 
-  // try {
-  event = stripe.webhooks.constructEvent(
-    req.body,
-    sig,
-    process.env.STRIPE_WEBHOOK_SECRET
-  );
-  console.log("check", event.type);
-  // } catch (err) {
-  //   res.status(400).send(`Webhook Error: ${err.message}`);
-  //   return;
-  // }
+  try {
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+  } catch (err) {
+    res.status(400).send(`Webhook Error: ${err.message}`);
+    return;
+  }
   if (event.type === "checkout.session.completed") {
     createOrder(event.data.object);
   }
