@@ -181,17 +181,17 @@ const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
 
   let event;
 
-  try {
-    event = stripe.webhooks.constructEvent(
-      req.body,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
-    console.log(event.type);
-  } catch (err) {
-    res.status(400).send(`Webhook Error: ${err.message}`);
-    return;
-  }
+  // try {
+  event = stripe.webhooks.constructEvent(
+    req.body,
+    sig,
+    process.env.STRIPE_WEBHOOK_SECRET
+  );
+  console.log("check", event.type);
+  // } catch (err) {
+  //   res.status(400).send(`Webhook Error: ${err.message}`);
+  //   return;
+  // }
   if (event.type === "checkout.session.completed") {
     createOrder(session);
   }
