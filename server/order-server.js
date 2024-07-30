@@ -150,9 +150,6 @@ const createOrder = async (session) => {
   const cart = await Cart.findById(cartId);
   const user = await User.find({ email: session.customer_email });
 
-  console.log(cart);
-  console.log(user);
-
   const order = await Order.create({
     user: user._id,
     cartItem: cart.cartItem,
@@ -162,6 +159,7 @@ const createOrder = async (session) => {
     isPaid: true,
     paidAt: Date.now(),
   });
+  
   if (order) {
     const bulkWrite = cart.cartItem.map((item) => ({
       updateOne: {
