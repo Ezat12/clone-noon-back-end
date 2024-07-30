@@ -171,8 +171,6 @@ const createOrder = async (session) => {
     await Product.bulkWrite(bulkWrite, {});
 
     await Cart.findByIdAndUpdate(cartId, { cartItem: [] }, { new: true });
-
-    res.status(200).json({ status: "success", order, cart });
   }
 };
 
@@ -193,6 +191,7 @@ const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
   }
   if (event.type === "checkout.session.completed") {
     createOrder(event.data.object);
+    res.status(200).json({ status: "success" });
   }
 });
 
