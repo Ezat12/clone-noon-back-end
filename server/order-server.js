@@ -159,7 +159,7 @@ const createOrder = async (session) => {
     isPaid: true,
     paidAt: Date.now(),
   });
-
+  console.log("order ", order);
   if (order) {
     const bulkWrite = cart.cartItem.map((item) => ({
       updateOne: {
