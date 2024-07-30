@@ -11,6 +11,7 @@ const { asyncErrorHandler } = require("express-error-catcher");
 const Cart = require("../models/cartModel");
 const Order = require("../models/orderModel");
 const Product = require("../models/productMode");
+const User = require("../models/userModel");
 const {
   deleteOne,
   updateOne,
@@ -60,6 +61,7 @@ const createCashOrder = asyncErrorHandler(async (req, res, next) => {
   }));
 
   await Product.bulkWrite(bulkWrite, {});
+  await Cart.findByIdAndUpdate(cartId, { cartItem: [] }, { new: true });
 
   res.status(200).json({ status: "success", data: order });
 });
@@ -140,6 +142,40 @@ const checkOutSession = asyncErrorHandler(async (req, res, next) => {
   res.status(200).json({ status: "success", session });
 });
 
+const createOrder = async (session) => {
+  const cartId = session.client_reference_id;
+  const shippingAddress = session.metadata;
+  const priceOrder = session.amount_total / 100;
+
+  const cart = await Cart.findById(cartId);
+  const user = await User.find({ email: session.customer_email });
+
+  const order = await Order.create({
+    user: user._id,
+    cartItem: cart.cartItem,
+    shippingAddress,
+    totalPriceOrder: priceOrder,
+    paymentMethodType: "card",
+    isPaid: true,
+    paidAt: Date.now(),
+  });
+
+  if (order) {
+    const bulkWrite = cart.cartItem.map((item) => ({
+      updateOne: {
+        filter: { _id: item.product },
+        update: { $inc: { quantity: -item.quantity, sold: +item.quantity } },
+      },
+    }));
+
+    await Product.bulkWrite(bulkWrite, {});
+
+    await Cart.findByIdAndUpdate(cartId, { cartItem: [] }, { new: true });
+
+    res.status(200).json({ status: "success", order, cart });
+  }
+};
+
 const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
   const sig = req.headers["stripe-signature"];
 
@@ -156,7 +192,7 @@ const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
   }
 
   if (event.type === "checkout.session.completed") {
-    console.log("Create Order Here");
+    createOrder(session);
   }
 });
 

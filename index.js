@@ -29,7 +29,6 @@ dotenv.config({ path: "config.env" });
 // Connect database
 dbConnection();
 
-
 // middleware
 
 app.use(cors());
@@ -40,6 +39,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// checkout Webhook
 app.post(
   "/webhook-checkout",
   express.raw({ type: "application/json" }),
@@ -48,7 +48,6 @@ app.post(
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "uploads")));
-
 
 // Routes
 
