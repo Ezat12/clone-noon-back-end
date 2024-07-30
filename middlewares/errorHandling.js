@@ -21,8 +21,8 @@ const envDev = (err, res) => {
 };
 
 const envProd = (err, res) => {
-  if ((err.name = "JsonWebTokenError")) err = invalidSignature();
-  if ((err.name = "TokenExpiredError")) err = tokenExpired();
+  if (err.name === "JsonWebTokenError") err = invalidSignature();
+  if (err.name === "TokenExpiredError") err = tokenExpired();
   res.status(400).json({
     status: err.statusCode,
     message: err.message,
