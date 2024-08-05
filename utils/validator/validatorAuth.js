@@ -17,22 +17,22 @@ const validatorSignUp = [
     .notEmpty()
     .withMessage("email is required")
     .isEmail()
-    .withMessage("email invalid addrees")
+    .withMessage("email invalid address")
     .custom(async (val) => {
       const checkEmail = await User.findOne({ email: val });
       if (checkEmail) {
-        throw new Error(`the email is token => ${val}`);
+        throw new Error(`the email is already taken => ${val}`);
       }
       return true;
     }),
   check("password")
     .notEmpty()
-    .withMessage("password is requried")
+    .withMessage("password is required")
     .isLength({ min: 6 })
     .withMessage("password must be at least 6 char")
     .custom((val, { req }) => {
       if (val !== req.body.passwordConfirm) {
-        throw new Error("passwod confirm not correct");
+        throw new Error("password confirm not correct");
       }
       return true;
     }),
@@ -51,11 +51,11 @@ const validatorLogin = [
     .notEmpty()
     .withMessage("email is required")
     .isEmail()
-    .withMessage("email invalid addrees"),
+    .withMessage("email invalid address"),
 
   check("password")
     .notEmpty()
-    .withMessage("password is requried")
+    .withMessage("password is required")
     .isLength({ min: 6 })
     .withMessage("password must be at least 6 char"),
 
