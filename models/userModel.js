@@ -28,6 +28,11 @@ const userSchema = new mongoose.Schema(
     passwordRestExpires: Date,
     passwordRestVerified: Boolean,
     phone: String,
+    birthday: Date,
+    gender: {
+      type: String,
+      enum: ["Male", "Female"],
+    },
     profileImg: String,
     role: {
       type: String,

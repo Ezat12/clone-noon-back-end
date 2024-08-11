@@ -201,6 +201,9 @@ const updateUserData = asyncErrorHandler(async (req, res, next) => {
       name: req.body.name,
       slug: req.body.slug,
       email: req.body.email,
+      phone: req.body.phone,
+      birthday: req.body.birthday,
+      gender: req.body.gender,
       // profileImg: req.body.image,
     },
     { new: true }
@@ -232,7 +235,6 @@ const activeUser = asyncErrorHandler(async (req, res, next) => {
   findUser.active = true;
   findUser.password = req.body.password;
   await findUser.save();
-  // console.log();
 
   res.status(200).json({ data: findUser });
 });
