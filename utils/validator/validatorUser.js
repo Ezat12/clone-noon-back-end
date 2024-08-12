@@ -76,7 +76,7 @@ const validatorUpdateUser = [
   check("phone")
     .optional()
     .isMobilePhone(["ar-EG", "ar-SA"])
-    .withMessage("the phone is not correct"),
+    .withMessage("Invalid phone"),
   validatorError,
 ];
 const validatorDeleteUser = [
