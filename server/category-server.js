@@ -31,8 +31,7 @@ const uploadCategoryImage = uploadImageSingle("image");
 const resizeImage = async (req, res, next) => {
   if (req.file) {
     const fileName = `category-${uuidv4()}-${Date.now()}.jpeg`;
-    const tempFilePath = `uploads/categories/${fileName}`;
-    console.log(req.file);
+    const tempFilePath = `/tmp/${fileName}`;
 
     await sharp(req.file.buffer)
       .toFormat("jpeg")
@@ -42,6 +41,7 @@ const resizeImage = async (req, res, next) => {
   }
   next();
 };
+
 const createCategory = createOne(Category);
 
 const getAllCategory = getAll(Category);
