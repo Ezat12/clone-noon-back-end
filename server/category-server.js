@@ -32,9 +32,8 @@ const resizeImage = async (req, res, next) => {
   if (req.file) {
     const fileName = `category-${uuidv4()}-${Date.now()}.jpeg`;
     await sharp(req.file.buffer)
-      .resize(500, 500)
       .toFormat("jpeg")
-      .jpeg({ quality: 90 })
+      .jpeg({ quality: 100 })
       .toFile(`uploads/categories/${fileName}`);
     req.body.image = fileName;
   }
