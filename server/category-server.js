@@ -32,6 +32,7 @@ const resizeImage = async (req, res, next) => {
   if (req.file) {
     const fileName = `category-${uuidv4()}-${Date.now()}.jpeg`;
     const tempFilePath = `/tmp/${fileName}`;
+    console.log(fileName);
 
     await sharp(req.file.buffer)
       .toFormat("jpeg")
