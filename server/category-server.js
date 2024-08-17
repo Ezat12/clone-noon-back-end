@@ -31,6 +31,8 @@ const uploadCategoryImage = uploadImageSingle("image");
 const resizeImage = async (req, res, next) => {
   if (req.file) {
     const fileName = `category-${uuidv4()}-${Date.now()}.jpeg`;
+    console.log(req.file);
+
     await sharp(req.file.buffer)
       .toFormat("jpeg")
       .jpeg({ quality: 100 })
