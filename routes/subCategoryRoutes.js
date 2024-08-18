@@ -11,6 +11,8 @@ const {
   deleteSubCategory,
   categoryIdToParams,
   checkCategoryId,
+  uploadSubCategoryImage,
+  resizeImage,
 } = require("../server/subCategory-server");
 
 const {
@@ -26,6 +28,8 @@ router
     protectAuth,
     allowedTo("admin", "manager"),
     categoryIdToParams,
+    uploadSubCategoryImage,
+    resizeImage,
     validatorCreateSubCategory,
     createSubCategory
   )

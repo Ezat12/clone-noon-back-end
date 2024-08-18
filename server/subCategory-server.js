@@ -9,6 +9,7 @@ const {
   getOne,
   getAll,
 } = require("./handlerFactory");
+const { uploadImageSingle } = require("../middlewares/uploadImage");
 
 const categoryIdToParams = (req, res, next) => {
   if (!req.body.category) {
@@ -21,6 +22,24 @@ const categoryIdToParams = (req, res, next) => {
 const checkCategoryId = (req, res, next) => {
   if (req.params.categoryId) {
     req.queryId = { category: req.params.categoryId };
+  }
+  next();
+};
+
+const uploadSubCategoryImage = uploadImageSingle("image");
+
+const resizeImage = async (req, res, next) => {
+  if (req.file) {
+    const fileName = `category-${uuidv4()}-${Date.now()}.jpeg`;
+    const tempFilePath = `/tmp/${fileName}`;
+
+    await sharp(req.file.buffer)
+      .toFormat("jpeg")
+      .jpeg({ quality: 100 })
+      .toFile(tempFilePath);
+
+    const result = await uploadImage(`${tempFilePath}`);
+    req.body.image = result.url;
   }
   next();
 };
@@ -44,4 +63,6 @@ module.exports = {
   deleteSubCategory,
   categoryIdToParams,
   checkCategoryId,
+  uploadSubCategoryImage,
+  resizeImage,
 };
