@@ -39,7 +39,7 @@ const resizeImage = async (req, res, next) => {
       .jpeg({ quality: 100 })
       .toFile(tempFilePath);
 
-    const result = await uploadImage(`uploads/categories/${tempFilePath}`);
+    const result = await uploadImage(`${tempFilePath}`);
     req.body.image = result.url;
   }
   next();
