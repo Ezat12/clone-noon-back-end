@@ -20,18 +20,19 @@ const categorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const checkImage = (doc) => {
-  if (doc.image) {
-    const imgURL = `${process.env.BASE_URL}/categories/${doc.image}`;
-    doc.image = imgURL;
-  }
-};
+// const checkImage = (doc) => {
+//   if (doc.image) {
+//     const imgURL = `${process.env.BASE_URL}/categories/${doc.image}`;
+//     doc.image = imgURL;
+//   }
+// };
 
-categorySchema.post("init", (doc) => {
-  checkImage(doc);
-});
-categorySchema.post("save", (doc) => {
-  checkImage(doc);
-});
+// categorySchema.post("init", (doc) => {
+//   checkImage(doc);
+// });
+// categorySchema.post("save", (doc) => {
+//   checkImage(doc);
+// });
+
 
 module.exports = mongoose.model("Category", categorySchema);

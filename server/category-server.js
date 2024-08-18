@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handlr");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
+const { uploadImage } = require("../utils/cloudinaryCofig");
 
 const {
   deleteOne,
@@ -31,14 +32,15 @@ const uploadCategoryImage = uploadImageSingle("image");
 const resizeImage = async (req, res, next) => {
   if (req.file) {
     const fileName = `category-${uuidv4()}-${Date.now()}.jpeg`;
-    const tempFilePath = `/tmp/${fileName}`;
-    console.log(fileName);
+    // const tempFilePath = `/tmp/${fileName}`;
 
     await sharp(req.file.buffer)
       .toFormat("jpeg")
       .jpeg({ quality: 100 })
-      .toFile(tempFilePath);
-    req.body.image = tempFilePath;
+      .toFile(`uploads/categories/${fileName}`);
+
+    const result = await uploadImage(`uploads/categories/${fileName}`);
+    req.body.image = result.url;
   }
   next();
 };
