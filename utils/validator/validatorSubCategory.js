@@ -7,7 +7,7 @@ const validatorCreateSubCategory = [
     .notEmpty()
     .withMessage("The name is required")
     .isLength({ min: 2, max: 30 })
-    .withMessage("the Category name should be min length 4 and max length 30")
+    .withMessage("the SubCategory name should be min length 4 and max length 30")
     .custom((val, { req }) => {
       req.body.slug = slugify(val);
       return true;
