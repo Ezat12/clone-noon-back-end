@@ -18,6 +18,9 @@ const subCategorySchema = new mongoose.Schema(
       ref: "Category",
       required: [true, "main Category must be required"],
     },
+    image: {
+      type : String,
+    }
   },
   { timestamps: true }
 );
