@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
+const multer = require("multer");
+const upload = multer();
 
 const { protectAuth, allowedTo } = require("../server/auth-server");
 
@@ -25,10 +27,11 @@ const {
 router
   .route("/")
   .post(
+    upload.single("image"),
     protectAuth,
     allowedTo("admin", "manager"),
+    // uploadSubCategoryImage,
     categoryIdToParams,
-    uploadSubCategoryImage,
     resizeImage,
     validatorCreateSubCategory,
     createSubCategory

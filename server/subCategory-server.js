@@ -1,7 +1,7 @@
 const SubCategory = require("../models/subCategoryModel");
-const asyncHandlr = require("express-async-handlr");
-const slugify = require("slugify");
-const ApiError = require("../utils/apiError");
+const { v4: uuidv4 } = require("uuid");
+const sharp = require("sharp");
+
 const {
   deleteOne,
   updateOne,
@@ -39,17 +39,13 @@ const resizeImage = async (req, res, next) => {
       .toFile(tempFilePath);
 
     const result = await uploadImage(`${tempFilePath}`);
-    req.body.image = result.url;
+    req.body.image = result;
   }
   next();
 };
 
 const createSubCategory = createOne(SubCategory);
-const getAllSubCategory = getAll(SubCategory); // async (req, res, next) => {
-//   const subCategory = await SubCategory.find({});
-
-//   res.status(200).json({ data: subCategory });
-// };
+const getAllSubCategory = getAll(SubCategory);
 
 const getSubCategory = getOne(SubCategory);
 const updateSubCategory = updateOne(SubCategory);

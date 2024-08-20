@@ -24,10 +24,11 @@ const deleteOne = (Model) =>
 const updateOne = (Model) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    console.log(id);
+
     const document = await Model.findByIdAndUpdate(id, req.body, {
       new: true,
     });
+
     if (!document) {
       return next(new ApiError(`no found document for you id ${id}`, 404));
     }
