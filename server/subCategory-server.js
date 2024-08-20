@@ -10,6 +10,7 @@ const {
   getAll,
 } = require("./handlerFactory");
 const { uploadImageSingle } = require("../middlewares/uploadImage");
+const { uploadImage } = require("../utils/cloudinaryCofig");
 
 const categoryIdToParams = (req, res, next) => {
   if (!req.body.category) {
