@@ -40,7 +40,7 @@ const resizeImage = async (req, res, next) => {
       .toFile(tempFilePath);
 
     const result = await uploadImage(`${tempFilePath}`);
-    req.body.image = result;
+    req.body.image = result.url;
   }
   next();
 };
