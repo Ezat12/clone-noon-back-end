@@ -31,13 +31,13 @@ const uploadSubCategoryImage = uploadImageSingle("image");
 
 const resizeImage = async (req, res, next) => {
   if (req.file) {
-    const fileName = `category-${uuidv4()}-${Date.now()}.jpeg`;
+    console.log(req.file);
+    const type = req.file.mimetype.split("/")[1];
+
+    const fileName = `category-${uuidv4()}-${Date.now()}.${type}`;
     const tempFilePath = `/tmp/${fileName}`;
 
-    await sharp(req.file.buffer)
-      .toFormat("jpeg")
-      .jpeg({ quality: 100 })
-      .toFile(tempFilePath);
+    await sharp(req.file.buffer).toFile(tempFilePath);
 
     const result = await uploadImage(`${tempFilePath}`);
     req.body.image = result.url;
