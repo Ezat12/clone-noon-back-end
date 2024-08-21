@@ -8,7 +8,7 @@ const {
   getAllBrand,
   getBrand,
   updateBrand,
-  deleteDrand,
+  deleteBrand,
   uploadBrandImage,
   resizeImage,
 } = require("../server/brand-server");
@@ -42,6 +42,6 @@ router
     validatorUpdateBrand,
     updateBrand
   )
-  .delete(protectAuth, allowedTo("admin"), validatorDeleteBrand, deleteDrand);
+  .delete(protectAuth, allowedTo("admin"), validatorDeleteBrand, deleteBrand);
 
 module.exports = router;

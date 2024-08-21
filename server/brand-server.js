@@ -11,18 +11,22 @@ const {
 } = require("./handlerFactory");
 const { uploadImageSingle } = require("../middlewares/uploadImage");
 const { asyncErrorHandler } = require("express-error-catcher");
+const { uploadImage } = require("../utils/cloudinaryCofig");
 
 const uploadBrandImage = uploadImageSingle("image");
 
 const resizeImage = asyncErrorHandler(async (req, res, next) => {
-  const fileName = `brand-${uuidv4()}-${Date.now()}.jpeg`;
+  const type = req.file.mimetype.split("/")[1];
+  const fileName = `brand-${uuidv4()}-${Date.now()}.${type}`;
+
+  const tempFilePath = `/tmp/${fileName}`;
+
   if (req.file) {
-    await sharp(req.file.buffer)
-      .resize(500, 500)
-      .toFormat("jpeg")
-      .jpeg({ quality: 90 })
-      .toFile(`uploads/brands/${fileName}`);
-    req.body.image = fileName;
+    await sharp(req.file.buffer).toFile(tempFilePath);
+
+    const result = await uploadImage(`${tempFilePath}`);
+
+    req.body.image = result.url;
   }
   next();
 });
@@ -35,14 +39,14 @@ const getBrand = getOne(Brand);
 
 const updateBrand = updateOne(Brand);
 
-const deleteDrand = deleteOne(Brand);
+const deleteBrand = deleteOne(Brand);
 
 module.exports = {
   createBrand,
   getAllBrand,
   getBrand,
   updateBrand,
-  deleteDrand,
+  deleteBrand,
   uploadBrandImage,
   resizeImage,
 };

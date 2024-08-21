@@ -20,19 +20,19 @@ const brandSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const checkImage = (doc) => {
-  if (doc.image) {
-    const imgURL = `${process.env.BASE_URL}/categories/${doc.image}`;
-    doc.image = imgURL;
-  }
-};
+// const checkImage = (doc) => {
+//   if (doc.image) {
+//     const imgURL = `${process.env.BASE_URL}/brands/${doc.image}`;
+//     doc.image = imgURL;
+//   }
+// };
 
-brandSchema.post("init", (doc) => {
-  checkImage(doc);
-});
-brandSchema.post("save", (doc) => {
-  checkImage(doc);
-});
+// brandSchema.post("init", (doc) => {
+//   checkImage(doc);
+// });
+// brandSchema.post("save", (doc) => {
+//   checkImage(doc);
+// });
 
 
 module.exports = mongoose.model("Brand", brandSchema);
