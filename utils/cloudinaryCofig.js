@@ -3,8 +3,6 @@ const dotenv = require("dotenv");
 
 dotenv.config({ path: "config.env" });
 
-console.log("process", process.env.CLOUD_NAME);
-
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
