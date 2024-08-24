@@ -23,8 +23,7 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
       const tempFile = `/tmp/${imgCoverFileName}`;
       await sharp(req.files.imgCover[0].buffer).toFile(`/${tempFile}`);
 
-      const result = uploadImage(tempFile);
-      console.log(result.url);
+      const result = await uploadImage(tempFile);
 
       req.body.imgCover = result.url;
     }
@@ -36,7 +35,7 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
           const tempFile = `/tmp/${imagesFileName}`;
           await sharp(img.buffer).toFile(`${tempFile}`);
 
-          const result = uploadImage(tempFile);
+          const result = await uploadImage(tempFile);
           req.body.images.push(result.url);
         })
       );
