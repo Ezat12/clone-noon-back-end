@@ -89,20 +89,20 @@ productSchema.pre(/^find/, function (next) {
   next();
 });
 
-const checkImage = (doc) => {
-  if (doc.imgCover) {
-    const imgURL = `${process.env.BASE_URL}/products/${doc.imgCover}`;
-    doc.imgCover = imgURL;
-  }
-  if (doc.images) {
-    let imagesURL = [];
-    doc.images.map((img, i) => {
-      const imgURL = `${process.env.BASE_URL}/products/${doc.images[i]}`;
-      imagesURL.push(imgURL);
-    });
-    doc.images = imagesURL;
-  }
-};
+// const checkImage = (doc) => {
+//   if (doc.imgCover) {
+//     const imgURL = `${process.env.BASE_URL}/products/${doc.imgCover}`;
+//     doc.imgCover = imgURL;
+//   }
+//   if (doc.images) {
+//     let imagesURL = [];
+//     doc.images.map((img, i) => {
+//       const imgURL = `${process.env.BASE_URL}/products/${doc.images[i]}`;
+//       imagesURL.push(imgURL);
+//     });
+//     doc.images = imagesURL;
+//   }
+// };
 
 productSchema.post("init", (doc) => {
   checkImage(doc);
