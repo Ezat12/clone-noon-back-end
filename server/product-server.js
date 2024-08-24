@@ -12,6 +12,7 @@ const {
   getAll,
 } = require("./handlerFactory");
 const { asyncErrorHandler } = require("express-error-catcher");
+const { uploadImage } = require("../utils/cloudinaryCofig");
 
 const uploadProductImage = uploadImageMix("imgCover", "images");
 
@@ -19,24 +20,22 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
   if (req.files) {
     if (req.files.imgCover) {
       const imgCoverFileName = `product-${uuidv4()}-${Date.now()}.jpeg`;
-      await sharp(req.files.imgCover[0].buffer)
-        .resize(2000, 1333)
-        .toFormat("jpeg")
-        .jpeg({ quality: 90 })
-        .toFile(`uploads/products/${imgCoverFileName}`);
-      req.body.imgCover = imgCoverFileName;
+      const tempFile = `/tmp/${imgCoverFileName}`;
+      await sharp(req.files.imgCover[0].buffer).toFile(`/${tempFile}`);
+
+      const result = uploadImage(tempFile);
+      req.body.imgCover = result.url;
     }
     if (req.files.images) {
       req.body.images = [];
       Promise.all(
         req.files.images.map(async (img) => {
           const imagesFileName = `product-${uuidv4()}-${Date.now()}.jpeg`;
-          await sharp(img.buffer)
-            .resize(2000, 1333)
-            .toFormat("jpeg")
-            .jpeg({ quality: 90 })
-            .toFile(`uploads/products/${imagesFileName}`);
-          req.body.images.push(imagesFileName);
+          const tempFile = `/tmp/${imagesFileName}`;
+          await sharp(img.buffer).toFile(`${tempFile}`);
+
+          const result = uploadImage(tempFile);
+          req.body.images.push(result.url);
         })
       );
     }

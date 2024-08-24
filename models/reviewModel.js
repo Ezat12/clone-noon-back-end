@@ -11,7 +11,7 @@ const reviewSchema = new mongoose.Schema(
       required: [true, "rating must be required"],
       min: [1, " min rating value is 1.0"],
       max: [5, " max rating value is 5.0"],
-      required: [true, "Review Reating must be required"],
+      required: [true, "Review Rating must be required"],
     },
     user: {
       type: mongoose.Schema.ObjectId,

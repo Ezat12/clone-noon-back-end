@@ -62,12 +62,12 @@ const validatorCreateProduct = [
     .optional()
     .isMongoId()
     .withMessage("Invalid id")
-    .custom(async (subcatrgories) => {
+    .custom(async (subCategory) => {
       const subcategoriesIds = await SubCategory.find({
-        _id: { $exists: true, $in: subcatrgories },
+        _id: { $exists: true, $in: subCategory },
       });
 
-      if (subcategoriesIds.length !== subcatrgories.length) {
+      if (subcategoriesIds.length !== subCategory.length) {
         throw new Error("Invalid subCategories ids");
       }
     })

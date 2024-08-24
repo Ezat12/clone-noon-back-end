@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema(
       trim: true,
     },
     price_discount: {
-      typr: Number,
+      type: Number,
     },
     colors: [String],
     imgCover: {
