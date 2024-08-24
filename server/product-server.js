@@ -24,6 +24,8 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
       await sharp(req.files.imgCover[0].buffer).toFile(`/${tempFile}`);
 
       const result = uploadImage(tempFile);
+      console.log(result.url);
+
       req.body.imgCover = result.url;
     }
     if (req.files.images) {
