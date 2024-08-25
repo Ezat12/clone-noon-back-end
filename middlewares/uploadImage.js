@@ -36,7 +36,7 @@ const uploadImageMix = (img, images) => {
     },
     {
       name: images,
-      maxCount: 50,
+      maxCount: 20,
     },
   ]));
 };
