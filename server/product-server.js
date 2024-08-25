@@ -18,6 +18,8 @@ const uploadProductImage = uploadImageMix("imgCover", "images");
 
 const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
   if (req.files) {
+    console.log(req.files);
+
     if (req.files.imgCover) {
       console.log(req.files.imgCover);
 
