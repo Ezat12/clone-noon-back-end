@@ -16,7 +16,7 @@ const uploadImageSingle = (fileName) => {
   return upload.single(fileName);
 };
 
-const uploadImageMix = (img , images) => {
+const uploadImageMix = (img, images) => {
   const storage = multer.memoryStorage();
 
   const fileFilter = (req, file, cb) => {
@@ -32,16 +32,14 @@ const uploadImageMix = (img , images) => {
   return (uploadProductImage = upload.fields([
     {
       name: img,
-      maxCount: "1",
+      maxCount: 1,
     },
     {
       name: images,
-      maxCount: "5",
+      maxCount: 50,
     },
   ]));
-
-  
-}
+};
 
 module.exports = {
   uploadImageSingle,
