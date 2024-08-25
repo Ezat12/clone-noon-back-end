@@ -104,12 +104,12 @@ productSchema.pre(/^find/, function (next) {
 //   }
 // };
 
-productSchema.post("init", (doc) => {
-  checkImage(doc);
-});
-productSchema.post("save", (doc) => {
-  checkImage(doc);
-});
+// productSchema.post("init", (doc) => {
+//   checkImage(doc);
+// });
+// productSchema.post("save", (doc) => {
+//   checkImage(doc);
+// });
 
 // productSchema.plugin(searchable);
 
