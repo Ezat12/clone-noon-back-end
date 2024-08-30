@@ -21,8 +21,6 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
     console.log(req.files);
 
     if (req.files.imgCover) {
-      console.log(req.files.imgCover);
-
       const imgCoverFileName = `product-${uuidv4()}-${Date.now()}.jpeg`;
       const tempFile = `/tmp/${imgCoverFileName}`;
       await sharp(req.files.imgCover[0].buffer).toFile(`/${tempFile}`);
@@ -32,7 +30,6 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
       req.body.imgCover = result.url;
     }
     if (req.files.images) {
-      console.log(req.files.images);
 
       req.body.images = [];
       Promise.all(

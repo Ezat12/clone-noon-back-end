@@ -19,6 +19,7 @@ const addressRoute = require("./routes/addressesRoutes");
 const couponRoute = require("./routes/couponRoutes");
 const cartRoute = require("./routes/cartRoutes");
 const orderRoute = require("./routes/orderRoutes");
+const imagesCategory = require("./routes/imagesCategoryRoutes");
 const ApiError = require("./utils/apiError");
 const errorHandling = require("./middlewares/errorHandling");
 
@@ -76,6 +77,8 @@ app.use("/api/v1/coupons", couponRoute);
 app.use("/api/v1/cart", cartRoute);
 
 app.use("/api/v1/orders", orderRoute);
+
+app.use("/api/v1/imagesCategory", imagesCategory);
 
 // Error Route
 app.all("*", (req, res, next) => {
