@@ -18,8 +18,6 @@ const uploadProductImage = uploadImageMix("imgCover", "images");
 
 const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
   if (req.files) {
-    console.log(req.files);
-
     if (req.files.imgCover) {
       const imgCoverFileName = `product-${uuidv4()}-${Date.now()}.jpeg`;
       const tempFile = `/tmp/${imgCoverFileName}`;
@@ -30,9 +28,8 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
       req.body.imgCover = result.url;
     }
     if (req.files.images) {
-
       req.body.images = [];
-      Promise.all(
+      await Promise.all(
         req.files.images.map(async (img) => {
           const imagesFileName = `product-${uuidv4()}-${Date.now()}.jpeg`;
           const tempFile = `/tmp/${imagesFileName}`;
