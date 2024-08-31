@@ -66,7 +66,7 @@ const getOne = (Model, populateOpt) =>
     res.status(200).json({ data: document });
   });
 
-const getAll = (Model) =>
+const getAll = (Model, name) =>
   asyncErrorHandler(async (req, res) => {
     const countDocuments = await Model.countDocuments();
     let queryId = {};
@@ -74,11 +74,13 @@ const getAll = (Model) =>
     if (req.queryId) {
       queryId = req.queryId;
     }
-    const allModel = new apiFeatures(Model.find(queryId), req.body)
+    console.log(req.query);
+
+    const allModel = new apiFeatures(Model.find(queryId), req.query)
       .fields()
       .sort()
       .filtraing()
-      .search()
+      .search(name)
       .pagination(countDocuments);
 
     const { paginationResult, mongooseQuery } = allModel;

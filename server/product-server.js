@@ -44,9 +44,18 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
   next();
 });
 
+const checkGetProduct = (req, res, next) => {
+  if (req.body.category) {
+    req.queryId = {
+      category: req.body.category,
+    };
+  }
+  next();
+};
+
 const createProduct = createOne(Product);
 
-const getAllProduct = getAll(Product);
+const getAllProduct = getAll(Product, "Product");
 
 const getProduct = getOne(Product, "reviews");
 const updateProduct = updateOne(Product);
@@ -61,4 +70,5 @@ module.exports = {
   deleteProduct,
   uploadProductImage,
   resizeImageProducts,
+  checkGetProduct,
 };

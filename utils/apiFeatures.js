@@ -4,7 +4,7 @@ class apiFeatures {
     this.queryString = queryString;
   }
   filtraing() {
-    /// req.body
+    /// req.query
     const queryStringObj = { ...this.queryString };
 
     // console.log(queryStringObj);
