@@ -74,7 +74,7 @@ const getAll = (Model, name) =>
     if (req.queryId) {
       queryId = req.queryId;
     }
-    console.log(req.query);
+    console.log(req.queryId);
 
     const allModel = new apiFeatures(Model.find(queryId), req.query)
       .fields()
