@@ -18,7 +18,7 @@ const validatorCreateProduct = [
   check("description")
     .notEmpty()
     .withMessage("description product must be required")
-    .isLength({ min: 10 })
+    .isLength({ min: 5 })
     .withMessage("too short description product"),
   check("quantity")
     .notEmpty()
