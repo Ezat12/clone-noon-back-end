@@ -18,7 +18,7 @@ const {
   validatorUpdateProduct,
   validatordeleteProduct,
 } = require("../utils/validator/validatorProduct");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 const reviewsRoute = require("./reviewRoutes");
 

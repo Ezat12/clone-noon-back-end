@@ -45,11 +45,11 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
 });
 
 const checkGetProduct = (req, res, next) => {
-  if (req.body.category) {
-    console.log(req.body.category);
+  if (req.params.productId) {
+    // console.log(req.body.category);
 
     req.queryId = {
-      category: req.body.category,
+      category: req.params.productId,
     };
   }
   next();

@@ -22,10 +22,13 @@ const {
 
 const subCategoryRoute = require("./subCategoryRoutes");
 const imagesCategoryRoute = require("./imagesCategoryRoutes");
+const Product = require("./productRoutes");
 
 // Nested Route SubCategory
 router.use("/:categoryId/subcategory", subCategoryRoute);
 // router.use("/:categoryId/subcategory", subCategoryRoute);
+
+router.use("/:productId/product", Product );
 
 // Nested Route ImagesCategory
 router.use("/:imageCategoryId/imagesCategory", imagesCategoryRoute);
