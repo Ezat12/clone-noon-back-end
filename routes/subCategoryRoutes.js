@@ -24,6 +24,10 @@ const {
   validatorDeleteSubCategory,
 } = require("../utils/validator/validatorSubCategory");
 
+const Product = require("./productRoutes");
+
+router.use("/:productId/product", Product);
+
 router
   .route("/")
   .post(

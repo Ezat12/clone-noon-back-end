@@ -44,12 +44,22 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
   next();
 });
 
-const checkGetProduct = (req, res, next) => {
+const checkGetProductWithCategory = (req, res, next) => {
   if (req.params.productId) {
     // console.log(req.body.category);
 
     req.queryId = {
       category: req.params.productId,
+    };
+  }
+  next();
+};
+const checkGetProductWithSubCategory = (req, res, next) => {
+  if (req.params.productId) {
+    // console.log(req.body.category);
+
+    req.queryId = {
+      subCategory: [req.params.productId],
     };
   }
   next();
@@ -72,5 +82,6 @@ module.exports = {
   deleteProduct,
   uploadProductImage,
   resizeImageProducts,
-  checkGetProduct,
+  checkGetProductWithCategory,
+  checkGetProductWithSubCategory,
 };

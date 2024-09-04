@@ -10,7 +10,8 @@ const {
   deleteProduct,
   uploadProductImage,
   resizeImageProducts,
-  checkGetProduct,
+  checkGetProductWithCategory,
+  checkGetProductWithSubCategory,
 } = require("../server/product-server");
 const {
   validatorCreateProduct,
@@ -34,7 +35,11 @@ router
     validatorCreateProduct,
     createProduct
   )
-  .get(checkGetProduct, getAllProduct);
+  .get(
+    checkGetProductWithCategory,
+    checkGetProductWithSubCategory,
+    getAllProduct
+  );
 
 router
   .route("/:id")
