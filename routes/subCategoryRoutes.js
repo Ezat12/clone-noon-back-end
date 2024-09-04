@@ -26,7 +26,7 @@ const {
 
 const Product = require("./productRoutes");
 
-router.use("/:productId/product", Product);
+router.use("/:productSubCategoryId/product", Product);
 
 router
   .route("/")

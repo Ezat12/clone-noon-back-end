@@ -45,21 +45,19 @@ const resizeImageProducts = asyncErrorHandler(async (req, res, next) => {
 });
 
 const checkGetProductWithCategory = (req, res, next) => {
-  if (req.params.productId) {
+  if (req.params.productCategoryId) {
     // console.log(req.body.category);
 
     req.queryId = {
-      category: req.params.productId,
+      category: req.params.productCategoryId,
     };
   }
   next();
 };
 const checkGetProductWithSubCategory = (req, res, next) => {
-  if (req.params.productId) {
-    // console.log(req.body.category);
-
+  if (req.params.productSubCategoryId) {
     req.queryId = {
-      subCategory: [req.params.productId],
+      subCategory: [req.params.productSubCategoryId],
     };
   }
   next();
