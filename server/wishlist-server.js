@@ -11,9 +11,9 @@ const addWishlistToUser = asyncErrorHandler(async (req, res, next) => {
     {
       new: true,
     }
-  );
+  ).populate("wishlist");
 
-  res.status(200).json({ data: user });
+  res.status(200).json({ wishlistUser: user.wishlist });
 });
 
 const deleteWishlistToUser = asyncErrorHandler(async (req, res, next) => {
@@ -23,15 +23,15 @@ const deleteWishlistToUser = asyncErrorHandler(async (req, res, next) => {
       $pull: { wishlist: req.body.product },
     },
     { new: true }
-  );
+  ).populate("wishlist");
 
-  res.status(201).json({ data: user });
+  res.status(201).json({ wishlistUser: user.wishlist });
 });
 
 const getLoggerUserWishlist = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findById(req.user._id).populate("wishlist");
 
-  res.status(200).json({ data: user.wishlist });
+  res.status(200).json({ wishlistUser: user.wishlist });
 });
 
 module.exports = {
