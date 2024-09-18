@@ -45,16 +45,9 @@ const createOne = (Model) =>
   });
 
 const getOne = (Model, populateOpt) =>
-  asyncHandler(async (req, res, next) => {
+  asyncErrorHandler(async (req, res, next) => {
     const { id } = req.params;
-    // let document = [];
-    // console.log(Model);
-    // if (Model === "Product" || "SubCategory") {
-    //   document = await Model.findById(id).populate({
-    //     path: "category",
-    //     select: "name -_id",
-    //   });
-    // }
+
     const query = Model.findById(id);
     if (populateOpt) {
       query.populate(populateOpt);

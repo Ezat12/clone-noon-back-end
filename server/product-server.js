@@ -68,6 +68,7 @@ const createProduct = createOne(Product);
 const getAllProduct = getAll(Product, "Product");
 
 const getProduct = getOne(Product, "reviews");
+
 const updateProduct = updateOne(Product);
 const deleteProduct = deleteOne(Product);
 

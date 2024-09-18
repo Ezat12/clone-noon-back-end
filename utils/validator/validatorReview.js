@@ -22,12 +22,11 @@ const validatorCreateReview = [
       });
 
       if (checkReview) {
-        throw new Error("you already create review befor");
+        throw new Error("you already create review before");
       }
 
       if (req.user.role === "user") {
         if (req.user._id.toString() !== req.body.user.toString()) {
-          console.log("Role");
           throw new Error("you are not allow to perform this action");
         }
       }
