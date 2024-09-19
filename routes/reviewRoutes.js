@@ -29,7 +29,7 @@ router
     validatorCreateReview,
     createReview
   )
-  .get(checkProductId, getAllReview);
+  .get(checkProductId, checkParamsProductId, getAllReview);
 
 router
   .route("/:id")

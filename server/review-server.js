@@ -10,7 +10,7 @@ const {
 
 const checkParamsProductId = (req, res, next) => {
   if (req.params.productId) {
-    req.body.product = req.params.productId;
+    req.queryId = { product: req.params.productId };
   }
   next();
 };
