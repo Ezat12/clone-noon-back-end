@@ -12,6 +12,7 @@ const {
   resizeImageProducts,
   checkGetProductWithCategory,
   checkGetProductWithSubCategory,
+  checkGetProductWithBrand,
 } = require("../server/product-server");
 const {
   validatorCreateProduct,
@@ -38,6 +39,7 @@ router
   .get(
     checkGetProductWithCategory,
     checkGetProductWithSubCategory,
+    checkGetProductWithBrand,
     getAllProduct
   );
 

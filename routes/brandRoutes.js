@@ -19,6 +19,10 @@ const {
   validatorDeleteBrand,
 } = require("../utils/validator/validatorBrand");
 
+const product = require("./productRoutes");
+
+router.use("/:brandId/product", product);
+
 router
   .route("/")
   .post(

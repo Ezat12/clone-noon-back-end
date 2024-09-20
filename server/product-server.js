@@ -63,6 +63,13 @@ const checkGetProductWithSubCategory = (req, res, next) => {
   next();
 };
 
+const checkGetProductWithBrand = (req, res, next) => {
+  if (req.params.brandId) {
+    req.queryId = { brand: req.params.brandId };
+  }
+  next();
+};
+
 const createProduct = createOne(Product);
 
 const getAllProduct = getAll(Product, "Product");
@@ -83,4 +90,5 @@ module.exports = {
   resizeImageProducts,
   checkGetProductWithCategory,
   checkGetProductWithSubCategory,
+  checkGetProductWithBrand,
 };
