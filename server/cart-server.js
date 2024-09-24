@@ -39,7 +39,7 @@ const addToCart = asyncErrorHandler(async (req, res, next) => {
 
       cart.cartItem[cartItemIndex] = cartItem;
     } else {
-      cart.cartItem.push({ product, color, price: productGetPrice.price });
+      cart.cartItem.push({ product, color, price : productGetPrice.price });
     }
   }
 
@@ -71,7 +71,7 @@ const deleteItem = asyncErrorHandler(async (req, res, next) => {
   const cart = await Cart.findOneAndUpdate(
     { user: req.user._id },
     {
-      $pull: { cartItem: { _id: req.params.cartItemId } },
+      $pull: { cartItem: { product: req.params.cartItemId } },
     },
     { new: true }
   );
