@@ -39,7 +39,7 @@ const addToCart = asyncErrorHandler(async (req, res, next) => {
 
       cart.cartItem[cartItemIndex] = cartItem;
     } else {
-      cart.cartItem.push({ product, color, price : productGetPrice.price });
+      cart.cartItem.push({ product, color, price: productGetPrice.price });
     }
   }
 
@@ -58,13 +58,11 @@ const getCartUser = asyncErrorHandler(async (req, res, next) => {
   // if (!cart) {
   //   return next(new ApiError("not found cart with user", 400));
   // }
-  res
-    .status(200)
-    .json({
-      status: "success",
-      // numCartItem: cart.cartItem.length || 0,
-      data: cart,
-    });
+  res.status(200).json({
+    status: "success",
+    // numCartItem: cart.cartItem.length || 0,
+    data: cart,
+  });
 });
 
 const deleteItem = asyncErrorHandler(async (req, res, next) => {
