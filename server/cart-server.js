@@ -20,13 +20,20 @@ const addToCart = asyncErrorHandler(async (req, res, next) => {
   const { product, color } = req.body;
 
   const productGetPrice = await Product.findById(product);
+  let price;
+
+  if (productGetPrice.price_discount) {
+    price = productGetPrice.price_discount;
+  } else {
+    price = productGetPrice.price;
+  }
 
   let cart = await Cart.findOne({ user: req.user._id });
 
   if (!cart) {
     cart = await Cart.create({
       user: req.user._id,
-      cartItem: [{ product, color, price: productGetPrice.price }],
+      cartItem: [{ product, color, price }],
     });
   } else {
     const cartItemIndex = cart.cartItem.findIndex(
@@ -39,7 +46,7 @@ const addToCart = asyncErrorHandler(async (req, res, next) => {
 
       cart.cartItem[cartItemIndex] = cartItem;
     } else {
-      cart.cartItem.push({ product, color, price: productGetPrice.price });
+      cart.cartItem.push({ product, color, price});
     }
   }
 
