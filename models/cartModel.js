@@ -31,6 +31,10 @@ cartSchema.pre(/^find/, function (next) {
   next();
 });
 
+cartSchema.post("save", async function (doc) {
+  await doc.populate({ path: "cartItem.product" });
+});
+
 cartSchema.pre("save", function (next) {
   this.populate({ path: "cartItem.product" });
   next();
