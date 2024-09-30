@@ -37,7 +37,7 @@ const addToCart = asyncErrorHandler(async (req, res, next) => {
     });
   } else {
     const cartItemIndex = cart.cartItem.findIndex(
-      (item) => item.product.toString() === product && item.color === color
+      (item) => item.product._id.toString() === product && item.color === color
     );
 
     if (cartItemIndex > -1) {
@@ -46,7 +46,7 @@ const addToCart = asyncErrorHandler(async (req, res, next) => {
 
       cart.cartItem[cartItemIndex] = cartItem;
     } else {
-      cart.cartItem.push({ product, color, price});
+      cart.cartItem.push({ product, color, price });
     }
   }
 
