@@ -76,7 +76,7 @@ const deleteItem = asyncErrorHandler(async (req, res, next) => {
   const cart = await Cart.findOneAndUpdate(
     { user: req.user._id },
     {
-      $pull: { cartItem: { product: req.params.cartItemId } },
+      $pull: { cartItem: { _id: req.params.cartItemId } },
     },
     { new: true }
   );
