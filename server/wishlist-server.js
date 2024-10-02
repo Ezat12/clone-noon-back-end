@@ -34,8 +34,18 @@ const getLoggerUserWishlist = asyncErrorHandler(async (req, res, next) => {
   res.status(200).json({ wishlistUser: user.wishlist });
 });
 
+const deleteAll = asyncErrorHandler(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(
+    req.user._id,
+    { wishlist: [] },
+    { new: true }
+  );
+  res.status(201).json({ data: user.wishlist });
+});
+
 module.exports = {
   addWishlistToUser,
   deleteWishlistToUser,
   getLoggerUserWishlist,
+  deleteAll,
 };

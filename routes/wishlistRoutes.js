@@ -3,6 +3,7 @@ const {
   addWishlistToUser,
   deleteWishlistToUser,
   getLoggerUserWishlist,
+  deleteAll,
 } = require("../server/wishlist-server");
 const { protectAuth, allowedTo } = require("../server/auth-server");
 const {
@@ -10,6 +11,8 @@ const {
 } = require("../utils/validator/validatorWishlist");
 
 const router = express.Router();
+
+router.use("/delete-all", protectAuth, allowedTo("user"), deleteAll);
 
 router
   .route("/")
