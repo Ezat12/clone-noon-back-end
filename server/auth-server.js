@@ -119,7 +119,7 @@ const forgotPassword = asyncErrorHandler(async (req, res, next) => {
     message: `rest code is => ${resetCode}`,
   });
 
-  res.statue(200).json({ msg: "We sent you a reset code , check your email" });
+  res.status(200).json({ msg: "We sent you a reset code , check your email" });
 });
 
 const verifyPassRestCode = asyncErrorHandler(async (req, res, next) => {
