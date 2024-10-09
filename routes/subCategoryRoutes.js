@@ -15,6 +15,7 @@ const {
   checkCategoryId,
   uploadSubCategoryImage,
   resizeImage,
+  getSubCategoryElectronics,
 } = require("../server/subCategory-server");
 
 const {
@@ -27,6 +28,8 @@ const {
 const Product = require("./productRoutes");
 
 router.use("/:productSubCategoryId/product", Product);
+
+router.route("/electronics").get(getSubCategoryElectronics);
 
 router
   .route("/")

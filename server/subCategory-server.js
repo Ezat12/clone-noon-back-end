@@ -1,4 +1,5 @@
 const SubCategory = require("../models/subCategoryModel");
+const Categories = require("../models/categoryModel");
 const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
 
@@ -11,6 +12,7 @@ const {
 } = require("./handlerFactory");
 const { uploadImageSingle } = require("../middlewares/uploadImage");
 const { uploadImage } = require("../utils/cloudinaryCofig");
+const { asyncErrorHandler } = require("express-error-catcher");
 
 const categoryIdToParams = (req, res, next) => {
   if (!req.body.category) {
@@ -52,6 +54,23 @@ const getSubCategory = getOne(SubCategory);
 const updateSubCategory = updateOne(SubCategory);
 const deleteSubCategory = deleteOne(SubCategory);
 
+const getSubCategoryElectronics = asyncErrorHandler(async (req, res, next) => {
+  // const names = ["mobiles", "laptops", "video-games"];
+  const categories = await Categories.find({
+    $or: [{ slug: "mobiles" }, { slug: "laptops" }, { slug: "video-games" }],
+  });
+
+  const subCategory = await SubCategory.find({
+    $or: [
+      { category: categories[0]._id },
+      { category: categories[1]._id },
+      { category: categories[2]._id },
+    ],
+  });
+
+  res.status(200).json({ data: subCategory });
+});
+
 module.exports = {
   createSubCategory,
   getAllSubCategory,
@@ -62,4 +81,5 @@ module.exports = {
   checkCategoryId,
   uploadSubCategoryImage,
   resizeImage,
+  getSubCategoryElectronics,
 };

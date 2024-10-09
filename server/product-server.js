@@ -1,4 +1,5 @@
 const Product = require("../models/productMode");
+const Categories = require("../models/categoryModel");
 
 const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
