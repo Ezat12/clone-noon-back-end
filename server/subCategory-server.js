@@ -60,13 +60,18 @@ const getSubCategoryElectronics = asyncErrorHandler(async (req, res, next) => {
     $or: [{ slug: "mobiles" }, { slug: "laptops" }, { slug: "video-games" }],
   });
 
-  const subCategory = await SubCategory.find({
-    $or: [
-      { category: categories[0]._id },
-      { category: categories[1]._id },
-      { category: categories[2]._id },
-    ],
-  });
+  const subCategory = await SubCategory.aggregate([
+    {
+      $match: {
+        $or: [
+          { category: categories[0]._id },
+          { category: categories[1]._id },
+          { category: categories[2]._id },
+        ],
+      },
+    },
+    { $sample: { size: 5 } },
+  ]);
 
   res.status(200).json({ data: subCategory });
 });
