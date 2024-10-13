@@ -138,10 +138,11 @@ const getTotalPriceAfDiscount = asyncErrorHandler(async (req, res, next) => {
   const { discount } = req.body;
   const checkCoupon = await Coupon.findOne({
     name: discount,
-    expire: { $gt: Date.now() },
   });
 
-  if (!checkCoupon) {
+  console.log(checkCoupon);
+
+  if (!checkCoupon || new Date(checkCoupon.expire) <= Date.now()) {
     return next(new ApiError("Invalid Coupon name"));
   }
 
