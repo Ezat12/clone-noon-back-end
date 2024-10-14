@@ -19,7 +19,7 @@ const deleteAddress = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findByIdAndUpdate(
     req.user._id,
     {
-      $pull: { addresses: req.body },
+      $pull: { addresses: { _id: req.params.id } },
     },
     { new: true }
   );

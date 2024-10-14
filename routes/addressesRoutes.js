@@ -17,7 +17,8 @@ const router = express.Router();
 router
   .route("/")
   .post(protectAuth, allowedTo("user"), addAddress)
-  .get(protectAuth, allowedTo("user"), getAddressUser)
-  .delete(protectAuth, allowedTo("user"), deleteAddress);
+  .get(protectAuth, allowedTo("user"), getAddressUser);
+
+router.route("/:id").delete(protectAuth, allowedTo("user"), deleteAddress);
 
 module.exports = router;
