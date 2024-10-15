@@ -45,10 +45,11 @@ reviewSchema.static("getRatingAvg_RatingQun", async function (productId) {
       },
     },
   ]);
+  console.log(result);
 
   await Product.findByIdAndUpdate(productId, {
-    rating_average: result[0].ratingAvg,
-    ratingQuantity: result[0].ratingSum,
+    rating_average: result.length > 0 ? result[0].ratingAvg : 1,
+    ratingQuantity: result.length > 0 ? result[0].ratingSum : 0,
   });
 });
 
