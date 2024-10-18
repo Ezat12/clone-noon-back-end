@@ -10,9 +10,12 @@ const {
   updatePaid,
   updateDelivered,
   checkOutSession,
+  getAllOrdersUser,
 } = require("../server/order-server");
 
 router.use(protectAuth);
+
+router.use("/getOrderUser", getAllOrdersUser);
 
 router.get("/checkout-session/:cartId", allowedTo("user"), checkOutSession);
 

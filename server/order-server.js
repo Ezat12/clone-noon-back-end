@@ -30,7 +30,11 @@ const createCashOrder = asyncErrorHandler(async (req, res, next) => {
   const shippingPrice = 0;
 
   // get cart with cartId
-  const cart = await Cart.findById(req.params.cartId);
+  const cart = await Cart.findById(req.params.id);
+
+  if (cart.cartItem.length === 0) {
+    return next(new ApiError("the cart user is empty", 400));
+  }
 
   if (!cart) {
     return next(new ApiError(`not found cart with id => ${req.params.cartId}`));
@@ -61,7 +65,7 @@ const createCashOrder = asyncErrorHandler(async (req, res, next) => {
   }));
 
   await Product.bulkWrite(bulkWrite, {});
-  await Cart.findByIdAndUpdate(cartId, { cartItem: [] }, { new: true });
+  await Cart.findByIdAndUpdate(req.params.id, { cartItem: [] }, { new: true });
 
   res.status(200).json({ status: "success", data: order });
 });
@@ -195,6 +199,12 @@ const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
   }
 });
 
+const getAllOrdersUser = asyncErrorHandler(async (req, res, next) => {
+  const orders = await Order.find({ user: req.user._id });
+
+  res.status(200).json({ data: orders });
+});
+
 module.exports = {
   createCashOrder,
   getAllOrders,
@@ -204,4 +214,5 @@ module.exports = {
   updateDelivered,
   checkOutSession,
   webhookCheckout,
+  getAllOrdersUser,
 };
