@@ -23,10 +23,10 @@ const orderSchema = new mongoose.Schema(
       default: 0,
     },
     shippingAddress: {
+      alias: String,
       details: String,
       phone: String,
       city: String,
-      postCode: String,
     },
     shippingPrice: {
       type: Number,
