@@ -1,4 +1,5 @@
 const SubCategory = require("../models/subCategoryModel");
+const Product = require("../models/productMode");
 const Categories = require("../models/categoryModel");
 const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
@@ -73,7 +74,23 @@ const getSubCategoryElectronics = asyncErrorHandler(async (req, res, next) => {
     { $sample: { size: 6 } },
   ]);
 
-  res.status(200).json({ data: subCategory });
+  const product = await Product.aggregate([
+    {
+      $match: {
+        $or: [
+          { subCategory: [subCategory[0]._id] },
+          { subCategory: [subCategory[1]._id] },
+          { subCategory: [subCategory[2]._id] },
+          { subCategory: [subCategory[3]._id] },
+          { subCategory: [subCategory[4]._id] },
+        ],
+      },
+    },
+    { $sample: { size: 6 } },
+  ]);
+
+
+  res.status(200).json({ data: subCategory, product });
 });
 
 module.exports = {
