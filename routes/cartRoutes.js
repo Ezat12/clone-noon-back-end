@@ -11,7 +11,7 @@ const {
   getTotalPriceAfDiscount,
 } = require("../server/cart-server");
 
-router.use(protectAuth, allowedTo("user"));
+router.use(protectAuth, allowedTo("user", "admin"));
 
 router
   .route("/")

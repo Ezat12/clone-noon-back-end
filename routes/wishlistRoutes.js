@@ -12,7 +12,7 @@ const {
 
 const router = express.Router();
 
-router.use("/delete-all", protectAuth, allowedTo("user"), deleteAll);
+router.use("/delete-all", protectAuth, allowedTo("user", "admin"), deleteAll);
 
 router
   .route("/")
