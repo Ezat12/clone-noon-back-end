@@ -86,7 +86,7 @@ const getSubCategoryElectronics = asyncErrorHandler(async (req, res, next) => {
         ],
       },
     },
-    { $sample: { size: 6 } },
+    { $sample: { size: 5 } },
   ]);
 
 
