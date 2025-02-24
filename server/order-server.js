@@ -134,8 +134,8 @@ const checkOutSession = asyncErrorHandler(async (req, res, next) => {
       },
     ],
     mode: "payment",
-    success_url: `http://localhost:5173/account/orders`,
-    cancel_url: `http://localhost:5173/cart`,
+    success_url: `https://e-commerce-shop-ten-sage.vercel.app/account/orders`,
+    cancel_url: `https://e-commerce-shop-ten-sage.vercel.app/cart`,
     customer_email: req.user.email,
     client_reference_id: req.params.cartId,
     // metadata: req,
@@ -180,7 +180,7 @@ const createOrder = async (session) => {
 
 const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
   console.log("Yes");
-  
+
   const sig = req.headers["stripe-signature"];
 
   let event;
@@ -198,7 +198,7 @@ const webhookCheckout = asyncErrorHandler(async (req, res, next) => {
   if (event.type === "checkout.session.completed") {
     createOrder(event.data.object);
     console.log("Yes Complete");
-    
+
     res.status(200).json({ status: "success" });
   } else {
     console.log("Back");
